@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Extension Manager",
-  "version": "1.0",
+  "version": "2.0",
   "description": "Manage your Chrome extensions comfortably by enabling and disabling them with ease.",
   "permissions": [
     "management",
