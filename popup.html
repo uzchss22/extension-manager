@@ -1,77 +1,102 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Extension Manager</title>
-    <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 10px; 
-            max-height: 400px; 
-            overflow: auto; 
-            background-color: #1c1c1c; 
-            color: #ffffff; 
-        }
-        ul { 
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-            gap: 10px;
-            padding: 0;
-            list-style: none;
-            margin: 0;
-        }
-        li { 
-            border-bottom: 1px solid #444444; 
-            padding: 5px;
-            background-color: #2c2c2c; 
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column; 
-            justify-content: space-between; 
-            border-radius: 0; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); 
-        }
-        .key-label { 
-            font-weight: bold; 
-            margin-bottom: 5px;
-        }
-        .extension-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px; 
-        }
-        .extension-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 5px;
-        }
-        button { 
-            cursor: pointer; 
-            width: 100%;
-            padding: 8px 0;
-            border: none; 
-            border-radius: 0; 
-            color: #ffffff; 
-            font-size: 16px; 
-            transition: background-color 0.3s; 
-        }
-        .enable-button {
-            background-color: #3498db; 
-        }
-        .enable-button:hover {
-            background-color: #2980b9; 
-        }
-        .disable-button {
-            background-color: #e74c3c; 
-        }
-        .disable-button:hover {
-            background-color: #c0392b; 
-        }
-    </style>
+  <meta charset="utf-8" />
+  <title>Extension Manager</title>
+  <link rel="stylesheet" href="popup.css" />
 </head>
-<body>
-    <h1>Manage Extensions</h1>
-    <ul id="extension-list"></ul>
-    <script src="popup.js"></script>
+<body class="theme-light">
+  <!-- macOS-style title bar -->
+  <header class="titlebar">
+    <div class="window-controls">
+      <button
+        class="control close"
+        id="close-button"
+        type="button"
+        aria-label="Close window"
+      ></button>
+    </div>
+    <div class="title">Extension Manager</div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+      ◐
+    </button>
+  </header>
+
+  <!-- Tabs -->
+  <nav class="tabs">
+    <button class="tab active" type="button" data-tab="toggle">
+      Toggle Keys
+    </button>
+    <button class="tab" type="button" data-tab="mapping">
+      Key Mapping
+    </button>
+    <button class="tab" type="button" data-tab="view">
+      View Options
+    </button>
+  </nav>
+
+  <!-- Tab contents -->
+  <main class="tab-panels">
+    <!-- 1) Toggle Keys tab -->
+    <section id="tab-toggle" class="tab-panel active">
+      <div class="search-bar">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search extensions"
+          autocomplete="off"
+        />
+      </div>
+      <ul id="extension-list" class="extension-grid"></ul>
+    </section>
+
+    <!-- 2) Key Mapping tab -->
+    <section id="tab-mapping" class="tab-panel">
+      <div class="mapping-header">
+        <p class="mapping-description">
+          Assign shortcut keys to your extensions. Each key must be 1–2 letters (a–z).
+        </p>
+        <button id="reset-keys-button" type="button" class="small-button">
+          Reset all keys
+        </button>
+      </div>
+
+      <div class="search-bar">
+        <input
+          id="mapping-search-input"
+          type="text"
+          placeholder="Search extensions in Key Mapping"
+          autocomplete="off"
+        />
+      </div>
+
+      <ul id="mapping-list" class="mapping-list"></ul>
+    </section>
+
+    <!-- 3) View Options tab -->
+    <section id="tab-view" class="tab-panel">
+      <div class="view-options">
+        <div class="view-row">
+          <label for="columns-select">Columns per row</label>
+          <select id="columns-select">
+            <option value="2">2 columns</option>
+            <option value="3" selected>3 columns</option>
+            <option value="4">4 columns</option>
+          </select>
+        </div>
+
+        <div class="view-row">
+          <label for="max-height-select">Max popup height</label>
+          <select id="max-height-select">
+            <option value="480">480px</option>
+            <option value="600" selected>600px</option>
+          </select>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="popup.js"></script>
 </body>
 </html>
