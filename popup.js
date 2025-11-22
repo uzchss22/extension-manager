@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let twoLetterPrefixes = new Set();
   let keySequence = '';
   let keySequenceTimer = null;
-  const KEY_SEQUENCE_TIMEOUT = 300; // ms
+  const KEY_SEQUENCE_TIMEOUT = 250; // ms
 
   // chrome.storage availability
   let hasStorage = false;
@@ -664,15 +664,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const ch = event.key.toLowerCase();
-      if (ch < 'a' || ch > 'z') {
+      // 영문자 물리키 위치만 허용 (KeyA ~ KeyZ: QWERTY 알파벳 키)
+      const code = event.code;
+      if (!/^Key[a-zA-Z]$/.test(code)) {
         return;
       }
 
+      // 키 시퀀스 로직: code 기준으로
       if (keySequenceTimer) {
         clearTimeout(keySequenceTimer);
         keySequenceTimer = null;
       }
+
+      const ch = code.slice(3).toLowerCase();
 
       keySequence += ch;
       if (keySequence.length > 2) {
