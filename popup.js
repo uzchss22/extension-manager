@@ -338,17 +338,17 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         keyMappings: {},
         viewOptions: { columnsPerRow: 3, maxHeight: 600 },
-        activeTab: 'toggle',
       },
       (data) => {
         keyMappings = data.keyMappings || {};
         viewOptions = data.viewOptions || { columnsPerRow: 3, maxHeight: 600 };
         applyViewOptions();
-        restoreActiveTab(data.activeTab || 'toggle');
+        restoreActiveTab('toggle');
         loadExtensions();
       }
     );
   }
+
 
   function saveKeyMappings() {
     if (!hasStorage) return;
